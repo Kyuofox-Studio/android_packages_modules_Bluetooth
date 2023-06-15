@@ -6,7 +6,14 @@ package android.bluetooth {
     method @RequiresPermission(android.Manifest.permission.BLUETOOTH_CONNECT) public java.util.List<android.bluetooth.BluetoothDevice> getConnectedDevices();
     method @RequiresPermission(android.Manifest.permission.BLUETOOTH_CONNECT) public int getConnectionState(android.bluetooth.BluetoothDevice);
     method @RequiresPermission(android.Manifest.permission.BLUETOOTH_CONNECT) public java.util.List<android.bluetooth.BluetoothDevice> getDevicesMatchingConnectionStates(int[]);
+    method @Nullable public int getLhdcCodecExtendApiConfigA2dpCodecSpecific(@NonNull android.bluetooth.BluetoothDevice, @NonNull byte[]);
+    method @Nullable public int getLhdcCodecExtendApiConfigAr(@NonNull android.bluetooth.BluetoothDevice, @NonNull byte[]);
+    method @Nullable public int getLhdcCodecExtendApiConfigMeta(@NonNull android.bluetooth.BluetoothDevice, @NonNull byte[]);
+    method @Nullable public int getLhdcCodecExtendApiVer(@NonNull android.bluetooth.BluetoothDevice, @NonNull byte[]);
     method @RequiresPermission(android.Manifest.permission.BLUETOOTH_CONNECT) public boolean isA2dpPlaying(android.bluetooth.BluetoothDevice);
+    method @Nullable public int setLhdcCodecExtendApiConfigAr(@NonNull android.bluetooth.BluetoothDevice, @NonNull byte[]);
+    method @Nullable public int setLhdcCodecExtendApiConfigMeta(@NonNull android.bluetooth.BluetoothDevice, @NonNull byte[]);
+    method @Nullable public void setLhdcCodecExtendApiDataGyro2D(@NonNull android.bluetooth.BluetoothDevice, @NonNull byte[]);
     field @RequiresPermission(android.Manifest.permission.BLUETOOTH_CONNECT) public static final String ACTION_CONNECTION_STATE_CHANGED = "android.bluetooth.a2dp.profile.action.CONNECTION_STATE_CHANGED";
     field @RequiresPermission(android.Manifest.permission.BLUETOOTH_CONNECT) public static final String ACTION_PLAYING_STATE_CHANGED = "android.bluetooth.a2dp.profile.action.PLAYING_STATE_CHANGED";
     field public static final int STATE_NOT_PLAYING = 11; // 0xb
@@ -457,6 +464,9 @@ package android.bluetooth {
     field public static final int SOURCE_CODEC_TYPE_INVALID = 1000000; // 0xf4240
     field public static final int SOURCE_CODEC_TYPE_LC3 = 5; // 0x5
     field public static final int SOURCE_CODEC_TYPE_LDAC = 4; // 0x4
+    field public static final int SOURCE_CODEC_TYPE_LHDCV2 = 7; // 0x7
+    field public static final int SOURCE_CODEC_TYPE_LHDCV3 = 6; // 0x6
+    field public static final int SOURCE_CODEC_TYPE_LHDCV5 = 8; // 0x8
     field public static final int SOURCE_CODEC_TYPE_SBC = 0; // 0x0
   }
 

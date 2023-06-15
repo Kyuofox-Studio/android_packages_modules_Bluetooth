@@ -23,7 +23,6 @@ apex {
     systemserverclasspath_fragments: ["com.android.btservices-systemserverclasspath-fragment"],
     compat_configs: ["bluetooth-compat-config"],
     apps: ["Bluetooth"],
-
     multilib: {
         first: {
             // Extractor process runs only with the primary ABI.
@@ -58,7 +57,10 @@ apex {
     systemserverclasspath_fragments: ["com.android.btservices-systemserverclasspath-fragment"],
     compat_configs: ["bluetooth-compat-config"],
     apps: ["Bluetooth"],
-
+    native_shared_libs: [
+        "liblhdcBT_enc",
+        "liblhdcv5BT_enc",
+    ],
     multilib: {
         first: {
             // Extractor process runs only with the primary ABI.

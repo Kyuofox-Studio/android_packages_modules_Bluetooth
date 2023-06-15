@@ -769,7 +769,8 @@
 
 /* Number of simultaneous stream endpoints. */
 #ifndef AVDT_NUM_SEPS
-#define AVDT_NUM_SEPS 12
+//#define AVDT_NUM_SEPS 12
+#define AVDT_NUM_SEPS 14    //Savitech LHDC
 #endif
 
 /* Number of transport channels setup by AVDT for all media streams */

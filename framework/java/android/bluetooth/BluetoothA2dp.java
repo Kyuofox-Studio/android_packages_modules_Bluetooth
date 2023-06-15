@@ -840,6 +840,159 @@ public final class BluetoothA2dp implements BluetoothProfile {
         }
     }
 
+    //LHDC Extended Function APIs Start
+    @Nullable
+    public int getLhdcCodecExtendApiVer(@NonNull BluetoothDevice device,
+                                        @NonNull byte[] exApiVer) {
+        if (DBG) Log.d(TAG, "getLhdcCodecExtendApiVer(" + device + ")");
+        verifyDeviceNotNull(device, "getLhdcCodecExtendApiVer");
+        if (exApiVer == null) {
+            Log.e(TAG, "exApiVer can't be null");
+            throw new IllegalArgumentException("codecConfig cannot be null");
+        }
+        try {
+            final IBluetoothA2dp service = getService();
+            if (service != null && isEnabled()) {
+                return service.getLhdcCodecExtendApiVer(device, exApiVer);
+            }
+            if (service == null) Log.w(TAG, "Proxy not attached to service");
+            return -1;
+        } catch (RemoteException e) {
+            Log.e(TAG, "Error talking to BT service", e);
+            return -1;
+        }
+    }
+
+    @Nullable
+    public int setLhdcCodecExtendApiConfigAr(@NonNull BluetoothDevice device, 
+                                             @NonNull byte[] codecConfig) {
+        if (DBG) Log.d(TAG, "setLhdcCodecExtendApiConfigAr(" + device + ")");
+        verifyDeviceNotNull(device, "setLhdcCodecExtendApiConfigAr");
+        if (codecConfig == null) {
+            Log.e(TAG, "codecConfig can't be null");
+            throw new IllegalArgumentException("codecConfig cannot be null");
+        }
+        try {
+            final IBluetoothA2dp service = getService();
+            if (service != null && isEnabled()) {
+                return service.setLhdcCodecExtendApiConfigAr(device, codecConfig);
+            }
+            if (service == null) Log.w(TAG, "Proxy not attached to service");
+            return -1;
+        } catch (RemoteException e) {
+            Log.e(TAG, "Error talking to BT service", e);
+            return -1;
+        }
+    }
+
+    @Nullable
+    public int getLhdcCodecExtendApiConfigAr(@NonNull BluetoothDevice device,
+                                             @NonNull byte[] codecConfig) {
+        if (DBG) Log.d(TAG, "getLhdcCodecExtendApiConfigAr(" + device + ")");
+        verifyDeviceNotNull(device, "getLhdcCodecExtendApiConfigAr");
+        if (codecConfig == null) {
+            Log.e(TAG, "codecConfig can't be null");
+            throw new IllegalArgumentException("codecConfig cannot be null");
+        }
+        try {
+            final IBluetoothA2dp service = getService();
+            if (service != null && isEnabled()) {
+                return service.getLhdcCodecExtendApiConfigAr(device, codecConfig);
+            }
+            if (service == null) Log.w(TAG, "Proxy not attached to service");
+            return -1;
+        } catch (RemoteException e) {
+            Log.e(TAG, "Error talking to BT service", e);
+            return -1;
+        }
+    }
+
+    @Nullable
+    public int setLhdcCodecExtendApiConfigMeta(@NonNull BluetoothDevice device,
+                                               @NonNull byte[] codecConfig) {
+        if (DBG) Log.d(TAG, "setLhdcCodecExtendApiConfigMeta(" + device + ")");
+        verifyDeviceNotNull(device, "setLhdcCodecExtendApiConfigMeta");
+        if (codecConfig == null) {
+            Log.e(TAG, "codecConfig can't be null");
+            throw new IllegalArgumentException("codecConfig cannot be null");
+        }
+        try {
+            final IBluetoothA2dp service = getService();
+            if (service != null && isEnabled()) {
+                return service.setLhdcCodecExtendApiConfigMeta(device, codecConfig);
+            }
+            if (service == null) Log.w(TAG, "Proxy not attached to service");
+            return -1;
+        } catch (RemoteException e) {
+            Log.e(TAG, "Error talking to BT service", e);
+            return -1;
+        }
+    }
+
+    @Nullable
+    public int getLhdcCodecExtendApiConfigMeta(@NonNull BluetoothDevice device,
+                                               @NonNull byte[] codecConfig) {
+        if (DBG) Log.d(TAG, "getLhdcCodecExtendApiConfigMeta(" + device + ")");
+        verifyDeviceNotNull(device, "getLhdcCodecExtendApiConfigMeta");
+        if (codecConfig == null) {
+            Log.e(TAG, "codecConfig can't be null");
+            throw new IllegalArgumentException("codecConfig cannot be null");
+        }
+        try {
+            final IBluetoothA2dp service = getService();
+            if (service != null && isEnabled()) {
+                return service.getLhdcCodecExtendApiConfigMeta(device, codecConfig);
+            }
+            if (service == null) Log.w(TAG, "Proxy not attached to service");
+            return -1;
+        } catch (RemoteException e) {
+            Log.e(TAG, "Error talking to BT service", e);
+            return -1;
+        }
+    }
+
+    @Nullable 
+    public int getLhdcCodecExtendApiConfigA2dpCodecSpecific(@NonNull BluetoothDevice device, 
+                                                            @NonNull byte[] codecConfig) {
+        if (DBG) Log.d(TAG, "getLhdcCodecExtendApiConfigA2dpCodecSpecific(" + device + ")");
+        verifyDeviceNotNull(device, "getLhdcCodecExtendApiConfigA2dpCodecSpecific");
+        if (codecConfig == null) {
+            Log.e(TAG, "codecConfig can't be null");
+            throw new IllegalArgumentException("codecConfig cannot be null");
+        }
+        try {
+            final IBluetoothA2dp service = getService();
+            if (service != null && isEnabled()) {
+                return service.getLhdcCodecExtendApiConfigA2dpCodecSpecific(device, codecConfig);
+            }
+            if (service == null) Log.w(TAG, "Proxy not attached to service");
+            return -1;
+        } catch (RemoteException e) {
+            Log.e(TAG, "Error talking to BT service", e);
+            return -1;
+        }
+    }
+
+    @Nullable
+    public void setLhdcCodecExtendApiDataGyro2D(@NonNull BluetoothDevice device,
+                                                @NonNull byte[] codecData) {
+        if (DBG) Log.d(TAG, "setLhdcCodecExtendApiDataGyro2D(" + device + ")");
+        verifyDeviceNotNull(device, "setLhdcCodecExtendApiDataGyro2D");
+        if (codecData == null) {
+            Log.e(TAG, "codecData can't be null");
+            throw new IllegalArgumentException("codecData cannot be null");
+        }
+        try {
+            final IBluetoothA2dp service = getService();
+            if (service != null && isEnabled()) {
+                service.setLhdcCodecExtendApiDataGyro2D(device, codecData);
+            }
+        } catch (RemoteException e) {
+            Log.e(TAG, "Error talking to BT service", e);
+        }
+    }
+    //LHDC Extended Function APIs End
+
     /**
      * Enables the optional codecs for the given device for this connection.
      *

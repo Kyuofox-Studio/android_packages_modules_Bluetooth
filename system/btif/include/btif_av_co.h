@@ -91,4 +91,24 @@ int bta_av_co_get_encoder_effective_frame_size();
 // information.
 void btif_a2dp_codec_debug_dump(int fd);
 
+//
+// Savitech LHDC_EXT_API -- START
+//
+int bta_av_co_get_codec_LHDC_user_ApiVer(
+    const RawAddress& peer_addr,
+    const char *config, const int clen);
+
+int bta_av_co_get_codec_LHDC_user_config(
+    const RawAddress& peer_addr,
+    const char *config, const int clen);
+
+int bta_av_co_set_codec_LHDC_user_config(
+    const RawAddress& peer_addr,
+    const char *config, const int clen);
+
+bool bta_av_co_set_codec_LHDC_user_data(
+    const RawAddress& peer_addr,
+    const char *config, const int clen);
+// Savitech LHDC_EXT_API -- END
+
 #endif  // BTIF_AV_CO_H

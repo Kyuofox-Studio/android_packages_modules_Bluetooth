@@ -93,7 +93,12 @@ class BtifA2dpSinkControlBlock {
         decode_alarm(nullptr),
         sample_rate(0),
         channel_count(0),
+#if 0
         rx_focus_state(BTIF_A2DP_SINK_FOCUS_NOT_GRANTED),
+#else
+        //Savitech -- Enable_A2DP_Sink
+        rx_focus_state(BTIF_A2DP_SINK_FOCUS_GRANTED),
+#endif
         audio_track(nullptr),
         decoder_interface(nullptr) {}
 
@@ -108,7 +113,12 @@ class BtifA2dpSinkControlBlock {
     alarm_free(decode_alarm);
     decode_alarm = nullptr;
     rx_flush = false;
+#if 0
     rx_focus_state = BTIF_A2DP_SINK_FOCUS_NOT_GRANTED;
+#else
+    //Savitech -- Enable_A2DP_Sink
+    rx_focus_state = BTIF_A2DP_SINK_FOCUS_GRANTED;
+#endif
     sample_rate = 0;
     channel_count = 0;
     decoder_interface = nullptr;

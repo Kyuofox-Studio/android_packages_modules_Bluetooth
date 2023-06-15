@@ -55,6 +55,10 @@ typedef enum {
   BTAV_A2DP_CODEC_INDEX_SOURCE_APTX,
   BTAV_A2DP_CODEC_INDEX_SOURCE_APTX_HD,
   BTAV_A2DP_CODEC_INDEX_SOURCE_LDAC,
+  BTAV_A2DP_CODEC_INDEX_SOURCE_LC3,
+  BTAV_A2DP_CODEC_INDEX_SOURCE_LHDCV3,
+  BTAV_A2DP_CODEC_INDEX_SOURCE_LHDCV2,
+  BTAV_A2DP_CODEC_INDEX_SOURCE_LHDCV5,
 
   BTAV_A2DP_CODEC_INDEX_SOURCE_MAX,
 
@@ -64,6 +68,8 @@ typedef enum {
   BTAV_A2DP_CODEC_INDEX_SINK_SBC = BTAV_A2DP_CODEC_INDEX_SINK_MIN,
   BTAV_A2DP_CODEC_INDEX_SINK_AAC,
   BTAV_A2DP_CODEC_INDEX_SINK_LDAC,
+  BTAV_A2DP_CODEC_INDEX_SINK_LHDCV3,
+  BTAV_A2DP_CODEC_INDEX_SINK_LHDCV5,
 
   BTAV_A2DP_CODEC_INDEX_SINK_MAX,
 
@@ -155,6 +161,20 @@ typedef struct {
       case BTAV_A2DP_CODEC_INDEX_SOURCE_LDAC:
         codec_name_str = "LDAC";
         break;
+      case BTAV_A2DP_CODEC_INDEX_SOURCE_LC3:
+        codec_name_str = "LC3";
+        break;
+      // Savitech Patch - START
+      case BTAV_A2DP_CODEC_INDEX_SOURCE_LHDCV2:
+        codec_name_str = "LHDC V2";
+        break;
+      case BTAV_A2DP_CODEC_INDEX_SOURCE_LHDCV3:
+        codec_name_str = "LHDC V3";
+        break;
+      case BTAV_A2DP_CODEC_INDEX_SOURCE_LHDCV5:
+        codec_name_str = "LHDC V5";
+        break;
+      // Savitech Patch - END
       case BTAV_A2DP_CODEC_INDEX_SINK_SBC:
         codec_name_str = "SBC (Sink)";
         break;
@@ -164,6 +184,14 @@ typedef struct {
       case BTAV_A2DP_CODEC_INDEX_SINK_LDAC:
         codec_name_str = "LDAC (Sink)";
         break;
+      // Savitech Patch - START
+      case BTAV_A2DP_CODEC_INDEX_SINK_LHDCV3:
+        codec_name_str = "LHDC V3 (Sink)";
+        break;
+      case BTAV_A2DP_CODEC_INDEX_SINK_LHDCV5:
+        codec_name_str = "LHDC V5 (Sink)";
+        break;
+      // Savitech Patch - END
       case BTAV_A2DP_CODEC_INDEX_MAX:
         codec_name_str = "Unknown(CODEC_INDEX_MAX)";
         break;
@@ -303,6 +331,16 @@ typedef struct {
   btav_audio_sink_config_callback audio_config_cb;
 } btav_sink_callbacks_t;
 
+/** Savitech LHDC_EXT_API -- START
+ *  Structure for LHDC Extended API data
+ */
+typedef struct {
+  RawAddress bd_addr;
+  int clen;
+  char* pData;
+} btif_av_codec_lhdc_api_data_t;
+// Savitech LHDC_EXT_API -- END
+
 /**
  * NOTE:
  *
@@ -347,6 +385,19 @@ typedef struct {
   /** Closes the interface. */
   void (*cleanup)(void);
 
+  // Savitech LHDC_EXT_API -- START
+  int (*getApiVer_lhdc)(   /* mapping to lhdc_getApiVer_src */
+      const RawAddress& bd_addr, char* version, int clen);
+
+  int (*getApiCfg_lhdc)(   /* mapping to lhdc_getApiCfg_src */
+      const RawAddress& bd_addr, char* config, int clen);
+
+  int (*setApiCfg_lhdc)(   /* mapping to lhdc_setApiCfg_src */
+      const RawAddress& bd_addr, char* config, int clen);
+
+  void (*setAPiData_lhdc)( /* mapping to lhdc_setApiData_src */
+      const RawAddress& bd_addr, char* data, int clen);
+  // Savitech LHDC_EXT_API -- END
 } btav_source_interface_t;
 
 /** Represents the standard BT-AV A2DP Sink interface.

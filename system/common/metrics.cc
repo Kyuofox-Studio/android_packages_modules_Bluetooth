@@ -250,6 +250,14 @@ static A2dpSourceCodec get_a2dp_source_codec(int64_t codec_index) {
       return A2dpSourceCodec::A2DP_SOURCE_CODEC_APTX_HD;
     case BTAV_A2DP_CODEC_INDEX_SOURCE_LDAC:
       return A2dpSourceCodec::A2DP_SOURCE_CODEC_LDAC;
+    // Savitech Patch - START  Offload
+    case BTAV_A2DP_CODEC_INDEX_SOURCE_LHDCV3:
+      return A2dpSourceCodec::A2DP_SOURCE_CODEC_LHDCV3;
+    case BTAV_A2DP_CODEC_INDEX_SOURCE_LHDCV2:
+      return A2dpSourceCodec::A2DP_SOURCE_CODEC_LHDCV2;
+    case BTAV_A2DP_CODEC_INDEX_SOURCE_LHDCV5:
+      return A2dpSourceCodec::A2DP_SOURCE_CODEC_LHDCV5;
+    // Savitech Patch - END
     default:
       return A2dpSourceCodec::A2DP_SOURCE_CODEC_UNKNOWN;
   }

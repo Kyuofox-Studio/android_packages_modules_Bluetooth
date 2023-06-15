@@ -138,6 +138,11 @@ enum A2dpSourceCodec {
   A2DP_SOURCE_CODEC_APTX = 3;
   A2DP_SOURCE_CODEC_APTX_HD = 4;
   A2DP_SOURCE_CODEC_LDAC = 5;
+  // Savitech Patch - START  Offload
+  A2DP_SOURCE_CODEC_LHDCV3 = 6;
+  A2DP_SOURCE_CODEC_LHDCV2 = 7;
+  A2DP_SOURCE_CODEC_LHDCV5 = 8;
+  // Savitech Patch - END
 }
 
 // Session information that gets logged for A2DP session.

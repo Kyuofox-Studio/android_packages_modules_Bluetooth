@@ -32,6 +32,7 @@ typedef struct {
   AAudioStream* stream;
   int bitsPerSample;
   int channelCount;
+  aaudio_format_t format; // Savitech LHDC_A2DP_SINK patch
   float* buffer;
   size_t bufferLength;
 } BtifAvrcpAudioTrack;
@@ -48,9 +49,14 @@ void* BtifAvrcpAudioTrackCreate(int trackFreq, int bitsPerSample,
 
   AAudioStreamBuilder* builder;
   AAudioStream* stream;
+  aaudio_format_t format; // Savitech LHDC_A2DP_SINK patch
   aaudio_result_t result = AAudio_createStreamBuilder(&builder);
   AAudioStreamBuilder_setSampleRate(builder, trackFreq);
-  AAudioStreamBuilder_setFormat(builder, AAUDIO_FORMAT_PCM_FLOAT);
+
+  // Savitech LHDC_A2DP_SINK patch - START
+  format = AAUDIO_FORMAT_PCM_FLOAT;
+  AAudioStreamBuilder_setFormat(builder, format);
+  // Savitech LHDC_A2DP_SINK patch - END
   AAudioStreamBuilder_setChannelCount(builder, channelCount);
   AAudioStreamBuilder_setSessionId(builder, AAUDIO_SESSION_ID_ALLOCATE);
   AAudioStreamBuilder_setPerformanceMode(builder,
@@ -64,6 +70,7 @@ void* BtifAvrcpAudioTrackCreate(int trackFreq, int bitsPerSample,
   trackHolder->stream = stream;
   trackHolder->bitsPerSample = bitsPerSample;
   trackHolder->channelCount = channelCount;
+  trackHolder->format = format; // Savitech LHDC_A2DP_SINK patch
   trackHolder->bufferLength =
       trackHolder->channelCount * AAudioStream_getBufferSizeInFrames(stream);
   trackHolder->buffer = new float[trackHolder->bufferLength]();
@@ -152,7 +159,7 @@ static size_t transcodeQ15ToFloat(uint8_t* buffer, size_t length,
                                   BtifAvrcpAudioTrack* trackHolder) {
   size_t sampleSize = sampleSizeFor(trackHolder);
   size_t i = 0;
-  for (; i <= length / sampleSize; i++) {
+  for (; i < length / sampleSize; i++) { // Savitech LHDC_A2DP_SINK patch
     trackHolder->buffer[i] = ((int16_t*)buffer)[i] * kScaleQ15ToFloat;
   }
   return i * sampleSize;
@@ -162,9 +169,15 @@ static size_t transcodeQ23ToFloat(uint8_t* buffer, size_t length,
                                   BtifAvrcpAudioTrack* trackHolder) {
   size_t sampleSize = sampleSizeFor(trackHolder);
   size_t i = 0;
-  for (; i <= length / sampleSize; i++) {
+  
+  // Savitech LHDC_A2DP_SINK patch - START
+  for (; i < length / sampleSize; i++) {
     size_t offset = i * sampleSize;
-    int32_t sample = *((int32_t*)(buffer + offset - 1)) & 0x00FFFFFF;
+    //int32_t sample = *((int32_t*)(buffer + offset - 1)) & 0x00FFFFFF;
+    // FIXME: out of range memory access at buffer[-1]
+    int32_t sample = *((int32_t*)(buffer + offset - 1)) & 0xFFFFFF00;
+    sample = sample >> 8;
+    // Savitech LHDC_A2DP_SINK patch - END
     trackHolder->buffer[i] = sample * kScaleQ23ToFloat;
   }
   return i * sampleSize;
@@ -174,7 +187,7 @@ static size_t transcodeQ31ToFloat(uint8_t* buffer, size_t length,
                                   BtifAvrcpAudioTrack* trackHolder) {
   size_t sampleSize = sampleSizeFor(trackHolder);
   size_t i = 0;
-  for (; i <= length / sampleSize; i++) {
+  for (; i < length / sampleSize; i++) { // Savitech LHDC_A2DP_SINK patch
     trackHolder->buffer[i] = ((int32_t*)buffer)[i] * kScaleQ31ToFloat;
   }
   return i * sampleSize;
@@ -210,6 +223,9 @@ int BtifAvrcpAudioTrackWriteData(void* handle, void* audioBuffer,
   size_t sampleSize = sampleSizeFor(trackHolder);
   int transcodedCount = 0;
   do {
+    // only PCM float
+    CHECK(trackHolder->format == AAUDIO_FORMAT_PCM_FLOAT);
+
     transcodedCount +=
         transcodeToPcmFloat(((uint8_t*)audioBuffer) + transcodedCount,
                             bufferLength - transcodedCount, trackHolder);

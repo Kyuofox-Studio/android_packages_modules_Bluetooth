@@ -154,7 +154,13 @@ typedef enum {
   BTA_AV_CODEC_TYPE_AAC = 0x02,
   BTA_AV_CODEC_TYPE_APTX = 0x04,
   BTA_AV_CODEC_TYPE_APTXHD = 0x08,
-  BTA_AV_CODEC_TYPE_LDAC = 0x10
+  BTA_AV_CODEC_TYPE_LDAC = 0x10,
+#if 0
+  // Savitech Patch - START  Offload
+  BTA_AV_CODEC_TYPE_LHDCV3 = 0x20,
+  BTA_AV_CODEC_TYPE_LHDCV5 = 0x80,
+  // Savitech Patch - END
+#endif
 } tBTA_AV_CODEC_TYPE;
 
 /* Event associated with BTA_AV_ENABLE_EVT */

@@ -778,6 +778,68 @@ public class A2dpService extends ProfileService {
         mA2dpCodecConfig.setCodecConfigPreference(device, codecStatus, codecConfig);
     }
 
+    /************************************************
+     * Savitech LHDC_EXT_API -- START
+     ***********************************************/
+    public int getLhdcCodecExtendApiVer(BluetoothDevice device, byte[] exApiVer) {
+        if (device == null) {
+            Log.e(TAG, "Cannot set codec config preference: no active A2DP device");
+            return -1;
+        }
+        return mA2dpCodecConfig.getLhdcCodecExtendApiVer(device, exApiVer);
+    }
+
+    public int setLhdcCodecExtendApiConfigAr(BluetoothDevice device, byte[] codecConfig) {
+        if (device == null) {
+            Log.e(TAG, "Cannot set codec config preference: no active A2DP device");
+            return -1;
+        }
+        return mA2dpCodecConfig.setLhdcCodecExtendApiConfigAr(device, codecConfig);
+    }
+
+    public int getLhdcCodecExtendApiConfigAr(BluetoothDevice device, byte[] codecConfig) {
+        if (device == null) {
+            Log.e(TAG, "Cannot set codec config preference: no active A2DP device");
+            return -1;
+        }
+        return mA2dpCodecConfig.getLhdcCodecExtendApiConfigAr(device, codecConfig);
+    }
+
+    public int setLhdcCodecExtendApiConfigMeta(BluetoothDevice device, byte[] codecConfig) {
+        if (device == null) {
+            Log.e(TAG, "Cannot set codec config preference: no active A2DP device");
+            return -1;
+        }
+        return mA2dpCodecConfig.setLhdcCodecExtendApiConfigMeta(device, codecConfig);
+    }
+
+    public int getLhdcCodecExtendApiConfigMeta(BluetoothDevice device, byte[] codecConfig) {
+        if (device == null) {
+            Log.e(TAG, "Cannot set codec config preference: no active A2DP device");
+            return -1;
+        }
+        return mA2dpCodecConfig.getLhdcCodecExtendApiConfigMeta(device, codecConfig);
+    }
+
+    public int getLhdcCodecExtendApiConfigA2dpCodecSpecific(BluetoothDevice device, byte[] codecConfig) {
+        if (device == null) {
+            Log.e(TAG, "Cannot set codec config preference: no active A2DP device");
+            return -1;
+        }
+        return mA2dpCodecConfig.getLhdcCodecExtendApiConfigA2dpCodecSpecific(device, codecConfig);
+    }
+
+    public void setLhdcCodecExtendApiDataGyro2D(BluetoothDevice device, byte[] codecData) {
+        if (device == null) {
+            Log.e(TAG, "Cannot set codec config preference: no active A2DP device");
+            return;
+        }
+        mA2dpCodecConfig.setLhdcCodecExtendApiDataGyro2D(device, codecData);
+    }
+    /************************************************
+     * Savitech LHDC_EXT_API -- END
+     ***********************************************/
+
     /**
      * Enables the optional codecs.
      *
@@ -1259,6 +1321,20 @@ public class A2dpService extends ProfileService {
             return mService;
         }
 
+        // Savitech - comaptible to API before Android 12.0 
+        private A2dpService getServiceLhdc() {
+            if (!Utils.checkCallerIsSystemOrActiveUser()
+                    || !Utils.checkServiceAvailable(mService, TAG)) {
+                Log.w(TAG, "A2DP call not allowed for non-active user");
+                return null;
+            }
+
+            if (mService != null && mService.isAvailable()) {
+                return mService;
+            }
+            return null;
+        }
+
         BluetoothA2dpBinder(A2dpService svc) {
             mService = svc;
         }
@@ -1488,6 +1564,82 @@ public class A2dpService extends ProfileService {
             }
             service.setCodecConfigPreference(device, codecConfig);
         }
+
+        /************************************************
+         * Savitech Patch - LHDC_EXT_API Start
+         ***********************************************/
+        @Override
+        public int getLhdcCodecExtendApiVer(BluetoothDevice device, 
+                byte[] exApiVer) {
+            A2dpService service = getServiceLhdc();
+            if (service == null) {
+                return -1;
+            }
+            return service.getLhdcCodecExtendApiVer(device, exApiVer);
+        }
+
+        @Override
+        public int setLhdcCodecExtendApiConfigAr(BluetoothDevice device, 
+                byte[] codecConfig) {
+            A2dpService service = getServiceLhdc();
+            if (service == null) {
+                return -1;
+            }
+            return service.setLhdcCodecExtendApiConfigAr(device, codecConfig);
+        }
+
+        @Override
+        public int getLhdcCodecExtendApiConfigAr(BluetoothDevice device,
+                byte[] codecConfig) {
+            A2dpService service = getServiceLhdc();
+            if (service == null) {
+                return -1;
+            }
+            return service.getLhdcCodecExtendApiConfigAr(device, codecConfig);
+        }
+
+        @Override
+        public int setLhdcCodecExtendApiConfigMeta(BluetoothDevice device,
+                byte[] codecConfig) {
+            A2dpService service = getServiceLhdc();
+            if (service == null) {
+                return -1;
+            }
+            return service.setLhdcCodecExtendApiConfigMeta(device, codecConfig);
+        }
+
+        @Override
+        public int getLhdcCodecExtendApiConfigMeta(BluetoothDevice device,
+                byte[] codecConfig) {
+            A2dpService service = getServiceLhdc();
+            if (service == null) {
+                return -1;
+            }
+            return service.getLhdcCodecExtendApiConfigMeta(device, codecConfig);
+        }
+
+        @Override
+        public int getLhdcCodecExtendApiConfigA2dpCodecSpecific(BluetoothDevice device,
+                byte[] codecConfig) {
+            A2dpService service = getServiceLhdc();
+            if (service == null) {
+                return -1;
+            }
+            return service.getLhdcCodecExtendApiConfigA2dpCodecSpecific(device, codecConfig);
+        }
+
+        @Override
+        public void setLhdcCodecExtendApiDataGyro2D(BluetoothDevice device,
+                byte[] codecData) {
+            A2dpService service = getServiceLhdc();
+            if (service == null) {
+                return;
+            }
+            service.setLhdcCodecExtendApiDataGyro2D(device, codecData);
+        }
+        /************************************************
+         * Savitech Patch - LHDC_EXT_API End
+         ***********************************************/
 
         @Override
         public void enableOptionalCodecs(BluetoothDevice device, AttributionSource source) {

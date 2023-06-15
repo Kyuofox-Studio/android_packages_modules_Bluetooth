@@ -46,6 +46,10 @@ bool A2dpAptxToHalConfig(CodecConfiguration* codec_config,
                          A2dpCodecConfig* a2dp_config);
 bool A2dpLdacToHalConfig(CodecConfiguration* codec_config,
                          A2dpCodecConfig* a2dp_config);
+// Savitech Patch - START  Offload
+bool A2dpLhdcv5ToHalConfig(CodecConfiguration* codec_config,
+                           A2dpCodecConfig* a2dp_config);
+// Savitech Patch - END
 
 bool UpdateOffloadingCapabilities(
     const std::vector<btav_a2dp_codec_config_t>& framework_preference);

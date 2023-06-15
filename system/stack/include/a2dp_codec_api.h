@@ -236,6 +236,20 @@ class A2dpCodecConfig {
   // The information is written in user-friendly form to file descriptor |fd|.
   virtual void debug_codec_dump(int fd);
 
+  // Savitech LHDC_EXT_API -- START
+  virtual int getLhdcExtendAPIVersion(
+      A2dpCodecConfig* peerCodec, const char* buf, const int clen) { return 0; }
+
+  virtual int getLhdcExtendAPIConfig(
+      A2dpCodecConfig* peerCodec, const char* buf, const int clen) { return 0; }
+
+  virtual int setLhdcExtendAPIConfig(
+      A2dpCodecConfig* peerCodec, const char* buf, const int clen) { return 0; }
+
+  virtual bool setLhdcExtendAPIData(
+      A2dpCodecConfig* peerCodec, const char* buf, const int clen) { return true; }
+  // Savitech LHDC_EXT_API -- END
+
   std::recursive_mutex codec_mutex_;
   const btav_a2dp_codec_index_t codec_index_;  // The unique codec index
   const std::string name_;                     // The codec name
@@ -434,6 +448,24 @@ class A2dpCodecs {
   // Dumps codec-related information.
   // The information is written in user-friendly form to file descriptor |fd|.
   void debug_codec_dump(int fd);
+
+  // Savitech LHDC_EXT_API -- START
+  int getLHDCCodecUserApiVer(
+      A2dpCodecConfig* peerCodec,
+      const char* codecConfig, const int clen);
+
+  int getLHDCCodecUserConfig(
+      A2dpCodecConfig* peerCodec,
+      const char* codecConfig, const int clen);
+
+  int setLHDCCodecUserConfig(
+      A2dpCodecConfig* peerCodec,
+      const char* codecConfig, const int clen);
+
+  bool setLHDCCodecUserData(
+      A2dpCodecConfig* peerCodec,
+      const char* codecData, const int clen);
+  // Savitech LHDC_EXT_API -- END
 
  private:
   struct CompareBtBdaddr

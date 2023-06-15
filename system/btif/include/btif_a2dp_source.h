@@ -134,4 +134,23 @@ void btif_a2dp_source_debug_dump(int fd);
 void btif_a2dp_source_set_dynamic_audio_buffer_size(
     uint8_t dynamic_audio_buffer_size);
 
+//
+// Savitech LHDC_EXT_API -- START
+//
+int btif_a2dp_source_encoder_LHDC_user_ApiVer_retrieve_req(
+    const RawAddress& peer_addr,
+    const char *config, const int clen);
+
+int btif_a2dp_source_encoder_LHDC_user_config_retrieve_req(
+    const RawAddress& peer_addr,
+    const char *config, const int clen);
+
+int btif_a2dp_source_encoder_LHDC_user_config_update_req(
+    const RawAddress& peer_addr,
+    const char *config, const int clen);
+
+void btif_a2dp_source_encoder_LHDC_user_data_update_req(
+    uint16_t event, char* p_param);
+// Savitech LHDC_EXT_API -- END
+
 #endif /* BTIF_A2DP_SOURCE_H */

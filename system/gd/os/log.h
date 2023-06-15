@@ -53,6 +53,9 @@ static_assert(LOG_TAG != nullptr, "LOG_TAG is null after header inclusion");
     if (bluetooth::common::InitFlags::IsDebugLoggingEnabledForTag(LOG_TAG)) { \
       ALOGD("%s:%d %s: " fmt, __FILE__, __LINE__, __func__, ##args);          \
     }                                                                         \
+    else {                                                                    \
+      ALOGD("DBG: " fmt, ##args);                                             \
+    }                                                                         \
   } while (false)
 
 #define LOG_INFO(fmt, args...) ALOGI("%s:%d %s: " fmt, __FILE__, __LINE__, __func__, ##args)

@@ -29,7 +29,8 @@ import com.android.modules.utils.SynchronousResultReceiver;
  *
  * @hide
  */
-oneway interface IBluetoothA2dp {
+// oneway interface IBluetoothA2dp {
+interface IBluetoothA2dp {   // Savitech LHDC_EXT_API
     // Public API
     @UnsupportedAppUsage
     @JavaPassthrough(annotation="@android.annotation.RequiresPermission(android.Manifest.permission.BLUETOOTH_CONNECT)")
@@ -90,4 +91,24 @@ oneway interface IBluetoothA2dp {
     void getBufferConstraints(in AttributionSource attributionSource, in SynchronousResultReceiver receiver);
     @JavaPassthrough(annotation="@android.annotation.RequiresPermission(allOf={android.Manifest.permission.BLUETOOTH_CONNECT,android.Manifest.permission.BLUETOOTH_PRIVILEGED})")
     void setBufferLengthMillis(int codec, int size, in AttributionSource attributionSource, in SynchronousResultReceiver receiver);
+    
+    // Savitech LHDC_EXT_API -- START
+    //  get revision of the API
+    @JavaPassthrough(annotation="@android.annotation.RequiresPermission(allOf={android.Manifest.permission.BLUETOOTH_CONNECT,android.Manifest.permission.BLUETOOTH_PRIVILEGED})")
+    int getLhdcCodecExtendApiVer(in BluetoothDevice device, inout byte[] exApiVer);
+    //  get/set config-type APIs
+    @JavaPassthrough(annotation="@android.annotation.RequiresPermission(allOf={android.Manifest.permission.BLUETOOTH_CONNECT,android.Manifest.permission.BLUETOOTH_PRIVILEGED})")
+    int setLhdcCodecExtendApiConfigAr(in BluetoothDevice device, in byte[] codecConfig);
+    @JavaPassthrough(annotation="@android.annotation.RequiresPermission(allOf={android.Manifest.permission.BLUETOOTH_CONNECT,android.Manifest.permission.BLUETOOTH_PRIVILEGED})")
+    int getLhdcCodecExtendApiConfigAr(in BluetoothDevice device, inout byte[] codecConfig);
+    @JavaPassthrough(annotation="@android.annotation.RequiresPermission(allOf={android.Manifest.permission.BLUETOOTH_CONNECT,android.Manifest.permission.BLUETOOTH_PRIVILEGED})")
+    int setLhdcCodecExtendApiConfigMeta(in BluetoothDevice device, in byte[] codecConfig);
+    @JavaPassthrough(annotation="@android.annotation.RequiresPermission(allOf={android.Manifest.permission.BLUETOOTH_CONNECT,android.Manifest.permission.BLUETOOTH_PRIVILEGED})")
+    int getLhdcCodecExtendApiConfigMeta(in BluetoothDevice device, inout byte[] codecConfig);
+    @JavaPassthrough(annotation="@android.annotation.RequiresPermission(allOf={android.Manifest.permission.BLUETOOTH_CONNECT,android.Manifest.permission.BLUETOOTH_PRIVILEGED})")
+    int getLhdcCodecExtendApiConfigA2dpCodecSpecific(in BluetoothDevice device, inout byte[] codecConfig);
+    //  set data-type APIs
+    @JavaPassthrough(annotation="@android.annotation.RequiresPermission(allOf={android.Manifest.permission.BLUETOOTH_CONNECT,android.Manifest.permission.BLUETOOTH_PRIVILEGED})")
+    oneway void setLhdcCodecExtendApiDataGyro2D(in BluetoothDevice device, in byte[] codecData);
+    // Savitech LHDC_EXT_API -- END
 }
